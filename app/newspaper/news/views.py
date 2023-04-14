@@ -4,5 +4,6 @@ from django.shortcuts import render
 
 # Create your views here.
 
-def news_list(request: HttpRequest) -> HttpResponse:
-    return HttpResponse('<h1>Hello world</h1>')
+def news_list(request: HttpRequest):
+    variables = [42 for _ in range(10)]
+    return render(request, 'news/index.html', context={'variables': variables})
