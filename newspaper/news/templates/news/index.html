@@ -1,0 +1,14 @@
+{% extends 'news/base_news.html' %}
+
+{% block title %}
+    News list
+{% endblock %}
+
+{% block content %}
+    <h1 class="mb-5">News</h1>
+    {% for variable in variables%}
+        <p>
+            {{ variable }}
+        </p>
+    {% endfor %}
+{% endblock %}
