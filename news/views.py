@@ -3,7 +3,9 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.views.generic import View
 
+from .forms import TagForm
 from .models import News, Tag
+from .utils import ObjectContentMixin
 
 
 # Create your views here.
@@ -18,15 +20,18 @@ def tags_list(request: HttpRequest) -> HttpResponse:
     return render(request, 'news/tags_list.html', context={'tags': tags})
 
 
-class NewsContent(View):
-
-    def get(self, request: HttpRequest, slug: str) -> HttpResponse:
-        news = get_object_or_404(News, slug__iexact=slug)
-        return render(request, 'news/news_content.html', context={'news': news})
+class NewsContent(ObjectContentMixin, View):
+    model = News
+    template = 'news/news_content.html'
 
 
-class TagContent(View):
+class TagContent(ObjectContentMixin, View):
+    model = Tag
+    template = 'news/tag_content.html'
 
-    def get(self, request: HttpRequest, slug: str) -> HttpResponse:
-        tag = get_object_or_404(Tag, slug__iexact=slug)
-        return render(request, 'news/tag_content.html', context={'tag': tag})
+
+class TagCreate(View):
+
+    def get(self, request: HttpRequest) -> HttpResponse:
+        form = TagForm()
+        return render(request, 'news/tag_create.html', context={'form': form})
