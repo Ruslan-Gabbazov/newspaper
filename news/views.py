@@ -1,14 +1,11 @@
 from django.http import HttpResponse, HttpRequest
-from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.views.generic import View
 
-from .forms import TagForm
+from .forms import TagForm, NewsForm
 from .models import News, Tag
-from .utils import ObjectContentMixin
+from .utils import ObjectContentMixin, ObjectCreateMixin, ObjectUpdateMixin, ObjectDeleteMixin
 
-
-# Create your views here.
 
 def news_list(request: HttpRequest) -> HttpResponse:
     news = News.objects.all()
@@ -30,8 +27,45 @@ class TagContent(ObjectContentMixin, View):
     template = 'news/tag_content.html'
 
 
-class TagCreate(View):
+class NewsCreate(ObjectCreateMixin, View):
+    form_model = NewsForm
+    template = 'news/news_create_form.html'
 
-    def get(self, request: HttpRequest) -> HttpResponse:
-        form = TagForm()
-        return render(request, 'news/tag_create.html', context={'form': form})
+
+class TagCreate(ObjectCreateMixin, View):
+    form_model = TagForm
+    template = 'news/tag_create_form.html'
+
+
+class NewsUpdate(ObjectUpdateMixin, View):
+    model = News
+    form_model = NewsForm
+    template = 'news/news_update_form.html'
+
+
+class TagUpdate(View):
+    model = Tag
+    form_model = TagForm
+    template = 'news/tag_update_form.html'
+
+
+class NewsDelete(ObjectDeleteMixin, View):
+    model = News
+    template = 'news/news_delete_form.html'
+    redirect_url = 'news_list_url'
+
+
+class TagDelete(ObjectDeleteMixin, View):
+    model = Tag
+    template = 'news/tag_delete_form.html'
+    redirect_url = 'tags_list_url'
+
+    # def get(self, request: HttpRequest, slug: str) -> HttpResponse:
+    #     tag = Tag.objects.get(slug__iexact=slug)
+    #     return render(request, 'news/tag_delete_form.html', context={'tag': tag})
+    #
+    # def post(self, request: HttpRequest, slug: str) -> HttpResponse:
+    #     tag = Tag.objects.get(slug__iexact=slug)
+    #     tag.delete()
+    #     return redirect(reverse('tags_list_url'))
+
