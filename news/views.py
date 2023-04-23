@@ -59,13 +59,3 @@ class TagDelete(ObjectDeleteMixin, View):
     model = Tag
     template = 'news/tag_delete_form.html'
     redirect_url = 'tags_list_url'
-
-    # def get(self, request: HttpRequest, slug: str) -> HttpResponse:
-    #     tag = Tag.objects.get(slug__iexact=slug)
-    #     return render(request, 'news/tag_delete_form.html', context={'tag': tag})
-    #
-    # def post(self, request: HttpRequest, slug: str) -> HttpResponse:
-    #     tag = Tag.objects.get(slug__iexact=slug)
-    #     tag.delete()
-    #     return redirect(reverse('tags_list_url'))
-

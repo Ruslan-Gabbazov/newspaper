@@ -14,7 +14,10 @@ class ObjectContentMixin:
     def get(self, request: HttpRequest, slug: str) -> HttpResponse:
         obj = get_object_or_404(self.model, slug__iexact=slug)
         obj_key = self.model.__name__.lower()
-        return render(request, self.template, context={obj_key: obj})
+        return render(request, self.template,
+                      context={obj_key: obj,
+                               'admin_object': obj,
+                               'content': True})
 
 
 class ObjectCreateMixin:

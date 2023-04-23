@@ -1,7 +1,7 @@
 {% extends 'news/base_news.html' %}
 
 {% block title %}
-    Update News "{{ post.title }}" - {{ block.super }}
+    Update News "{{ news.title }}" - {{ block.super }}
 {% endblock %}
 
 {% block content %}
@@ -22,7 +22,7 @@
             </div>
         {% endfor %}
 
-        <button type="submit" class="btn btn-primary">Update news</button>
+        <button type="submit" class="btn btn-primary">Update News</button>
     </form>
 
 {% endblock %}
