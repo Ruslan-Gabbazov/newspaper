@@ -1,0 +1,12 @@
+{% extends 'news/base_news.html' %}
+
+{% block title %}
+    News list
+{% endblock %}
+
+{% block content %}
+<h1 class="mb-5">News</h1>
+    {% for element in news%}
+        {% include 'news/includes/card_template.html' %}
+    {% endfor %}
+{% endblock %}

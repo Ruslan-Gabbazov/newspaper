@@ -1,0 +1,16 @@
+{% extends 'news/base_news.html' %}
+
+{% block title%}
+    {{ tag.title }} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <h1 class="mb-5">
+        News with "{{ tag.title|title }}" tag:
+    </h1>
+
+    {% for element in tag.news.all%}
+        {% include 'news/includes/card_template.html' %}
+    {% endfor %}
+
+{% endblock %}
