@@ -6,16 +6,7 @@
 
 {% block content %}
 <h1 class="mb-5">News</h1>
-    {% for news_e in news%}
-        <div class="card mb-5">
-            <div class="card-header">
-                {{ news_e.date }}
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">{{ news_e.title }}</h5>
-                <p class="card-text">{{ news_e.body|truncatewords:15 }}</p>
-                <a href="{{ news_e.get_absolute_url }}" class="btn btn-light">Read</a>
-            </div>
-        </div>
+    {% for element in news%}
+        {% include 'news/includes/card_template.html' %}
     {% endfor %}
 {% endblock %}
