@@ -43,7 +43,7 @@ class NewsUpdate(ObjectUpdateMixin, View):
     template = 'news/news_update_form.html'
 
 
-class TagUpdate(View):
+class TagUpdate(ObjectUpdateMixin, View):
     model = Tag
     form_model = TagForm
     template = 'news/tag_update_form.html'
